@@ -15,3 +15,21 @@ Database Setup:
       WITH MOVE 'IMDB_Project' TO '<File path to YOUR localDB instance folder>\IMDB_Project.mdf',
       MOVE 'IMDB_Project_Log' TO '<File path to YOUR localDB instance folder>\IMDB_Project_Log.ldf',
       RECOVERY, REPLACE, STATS = 10;
+
+
+
+NuGet:
+      Microsoft.EntityFrameworkCore  7.0.17
+      Microsoft.EntityFrameworkCore.Design  7.0.17
+      Microsoft.EntityFrameworkCore.SqlServer  7.0.17
+      Microsoft.EntityFrameworkCore.Tools  7.0.17
+
+
+Scaffold Command：
+
+scaffold-dbcontext "{Your Local DB Connect String}" Microsoft.EntityFrameworkCore.SqlServer -contextdir Data -outputdir Models/Generated -contextnamespace PMEB_Final_Group2.Data -namespace PMEB_Final_Group2.Models -force
+
+AppConfig：connectionStrings：{Your Local DB Connect String}
+
+
+  
