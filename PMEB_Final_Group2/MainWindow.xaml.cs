@@ -26,7 +26,7 @@ namespace PMEB_Final_Group2
 
             var topTitles = context.Titles
                                    .OrderBy(t => t.TitleId)
-                                   .Take(10)
+                                   .Take(20)
                                    .ToList();
 
             var titlesText = string.Join(Environment.NewLine, topTitles.Select(t => t.TitleId));
