@@ -8,9 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
-       
+        
+        
         <ResourceDictionary>
-
+            
             <CollectionViewSource x:Key="genreListSource"></CollectionViewSource>
             <Style x:Key="MainFrameStyle" TargetType="Frame">
                 <Setter Property="Height" Value="Auto"/>
@@ -40,9 +41,16 @@
                 <Button x:Name="DirectsBtn" Click="DirectsBtn_Click">
                     Director
                 </Button>
-                <Button x:Name="RatingBtn" Click="RatingBtn_Click">
-                    Rating
-                </Button>
+
+                <ComboBox x:Name="ratingComboBox" SelectionChanged="RatingComboBox_SelectionChanged" Width="86" Margin="10" IsEditable="True" IsReadOnly="True" Text="Rating">
+                    <ComboBoxItem Content="★☆☆☆☆" Tag="20"/>
+                    <ComboBoxItem Content="★★☆☆☆" Tag="40"/>
+                    <ComboBoxItem Content="★★★☆☆" Tag="60"/>
+                    <ComboBoxItem Content="★★★★☆" Tag="80"/>
+                    <ComboBoxItem Content="★★★★★" Tag="100"/>
+                </ComboBox>
+
+
                 <ListView ItemsSource="{Binding Source= {StaticResource genreListSource}}" Height="400" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListView.View>
                         <GridView>
@@ -52,7 +60,7 @@
                 </ListView>
             </StackPanel>
         </ToolBar>
-        <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}"></Frame>
+        <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}" Width="652"></Frame>
     </DockPanel>
     
     

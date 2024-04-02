@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PMEB_Final_Group2.Data;
 using PMEB_Final_Group2.Models;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -70,9 +72,18 @@ namespace PMEB_Final_Group2
             mainFrame.NavigationService.Navigate(new Pages.Directors());
         }
 
-        private void RatingBtn_Click(object sender, RoutedEventArgs e)
+
+        private void RatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new Pages.MainSearch());
+            if (ratingComboBox.SelectedItem is ComboBoxItem selectedRating)
+            {
+                int ratingValue = Convert.ToInt32(selectedRating.Tag);
+
+
+                mainFrame.NavigationService.Navigate(new Pages.MainSearch());
+            }
         }
+
+
     }
 }
