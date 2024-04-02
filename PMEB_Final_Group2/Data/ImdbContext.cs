@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using PMEB_Final_Group2.Models;
 
-namespace PMEB_Final_Group2;
-
-// Scaffold command used
-// scaffold-dbcontext "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=IMDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False" Microsoft.EntityFrameworkCore.SqlServer -contextdir Data -outputdir Models/Generated -contextnamespace PMEB_Final_Group2 -namespace PMEB_Final_Group2.Models -force
+namespace PMEB_Final_Group2.Data;
 
 public partial class ImdbContext : DbContext
 {
@@ -22,6 +18,8 @@ public partial class ImdbContext : DbContext
 
     public virtual DbSet<Episode> Episodes { get; set; }
 
+    public virtual DbSet<Favorite> Favorites { get; set; }
+
     public virtual DbSet<Genre> Genres { get; set; }
 
     public virtual DbSet<Name> Names { get; set; }
@@ -35,7 +33,8 @@ public partial class ImdbContext : DbContext
     public virtual DbSet<TitleAlias> TitleAliases { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["ImdbDBConn"].ConnectionString);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IMDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -62,6 +61,21 @@ public partial class ImdbContext : DbContext
                 .HasForeignKey<Episode>(d => d.TitleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Episodes_Titles");
+        });
+
+        modelBuilder.Entity<Favorite>(entity =>
+        {
+            entity.HasKey(e => e.FavoriteId).HasName("PK__Favorite__CE74FAF504E3D3CA");
+
+            entity.Property(e => e.FavoriteId).HasColumnName("FavoriteID");
+            entity.Property(e => e.TitleId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("TitleID");
+
+            entity.HasOne(d => d.Title).WithMany(p => p.Favorites)
+                .HasForeignKey(d => d.TitleId)
+                .HasConstraintName("FK_Favorites_Titles");
         });
 
         modelBuilder.Entity<Genre>(entity =>

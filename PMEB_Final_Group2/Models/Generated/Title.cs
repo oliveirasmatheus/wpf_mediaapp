@@ -25,6 +25,8 @@ public partial class Title
 
     public virtual Episode? EpisodeTitle { get; set; }
 
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
     public virtual Rating? Rating { get; set; }
 
     public virtual ICollection<TitleAlias> TitleAliases { get; set; } = new List<TitleAlias>();

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using PMEB_Final_Group2.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,18 @@ namespace PMEB_Final_Group2
         public MainWindow()
         {
             InitializeComponent();
+            //Testing 
+            ImdbContext context = new ImdbContext();
+
+
+            var topTitles = context.Titles
+                                   .OrderBy(t => t.TitleId)
+                                   .Take(10)
+                                   .ToList();
+
+            var titlesText = string.Join(Environment.NewLine, topTitles.Select(t => t.TitleId));
+            TitlesTextBox.Text = titlesText;
+            //Testing
         }
     }
 }
