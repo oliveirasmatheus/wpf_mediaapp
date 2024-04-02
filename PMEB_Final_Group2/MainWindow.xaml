@@ -6,7 +6,52 @@
         xmlns:local="clr-namespace:PMEB_Final_Group2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBox x:Name="TitlesTextBox" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-    </Grid>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MainFrameStyle" TargetType="Frame">
+                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="DockPanel.Dock" Value="Right"/>
+                <Setter Property="NavigationUIVisibility" Value="Hidden"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel>
+        
+        <ToolBar DockPanel.Dock="Left" >
+            <StackPanel  Orientation="Vertical" Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="txtSearch" Width="60" />
+                    <Button x:Name="SearchButton" Click="SearchButton_Click">
+                        Search
+                    </Button>
+                </StackPanel>
+                <Button x:Name="DashBoradBtn" Click="DashBoradBtn_Click">
+                   DashBoard
+                </Button>
+                <Button x:Name="FavoritesBtn" Click="FavoritesBtn_Click">
+                   Favorites
+                </Button>
+                <Button x:Name="DirectsBtn" Click="DirectsBtn_Click">
+                    Director
+                </Button>
+                <Button x:Name="RatingBtn" Click="RatingBtn_Click">
+                    Rating
+                </Button>
+                <ListView >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Type" />
+                          
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </ToolBar>
+        <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}"></Frame>
+    </DockPanel>
+    
+    
 </Window>

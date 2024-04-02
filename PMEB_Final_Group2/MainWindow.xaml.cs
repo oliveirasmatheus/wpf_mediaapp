@@ -17,21 +17,48 @@ namespace PMEB_Final_Group2
     /// </summary>
     public partial class MainWindow : Window
     {
+       
         public MainWindow()
         {
-            InitializeComponent();
-            //Testing 
             ImdbContext context = new ImdbContext();
 
+            InitializeComponent();
+            LoadHomePage();
+            
 
-            var topTitles = context.Titles
-                                   .OrderBy(t => t.TitleId)
-                                   .Take(20)
-                                   .ToList();
+        }
 
-            var titlesText = string.Join(Environment.NewLine, topTitles.Select(t => t.TitleId));
-            TitlesTextBox.Text = titlesText;
-            //Testing
+        private void LoadHomePage()
+        {
+            if (mainFrame != null)
+            {
+                mainFrame.NavigationService.Navigate(new Pages.DashBorad());
+            }
+        }
+
+        private void DashBoradBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.DashBorad());
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.MainSearch());
+        }
+
+        private void FavoritesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.Favorites());
+        }
+
+        private void DirectsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.Directors());
+        }
+
+        private void RatingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.MainSearch());
         }
     }
 }
