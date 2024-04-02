@@ -1,4 +1,6 @@
-﻿using PMEB_Final_Group2.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PMEB_Final_Group2.Data;
+using PMEB_Final_Group2.Models;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,16 +19,19 @@ namespace PMEB_Final_Group2
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        ImdbContext context = new ImdbContext();
+
+        CollectionViewSource genreListSource = new CollectionViewSource();
+       
        
         public MainWindow()
-        {
-            ImdbContext context = new ImdbContext();
-
+        {   
             InitializeComponent();
             LoadHomePage();
-            
 
         }
+
 
         private void LoadHomePage()
         {
@@ -34,6 +39,15 @@ namespace PMEB_Final_Group2
             {
                 mainFrame.NavigationService.Navigate(new Pages.DashBorad());
             }
+
+            //Create List for Genre
+            genreListSource = (CollectionViewSource)FindResource(nameof(genreListSource));
+
+            context.Genres.Load();
+            genreListSource.Source = context.Genres.Local.ToObservableCollection();
+
+            var query = from genre in context.Genres select genre;
+            genreListSource.Source = query.ToList();
         }
 
         private void DashBoradBtn_Click(object sender, RoutedEventArgs e)

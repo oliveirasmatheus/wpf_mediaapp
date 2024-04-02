@@ -8,7 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
+       
         <ResourceDictionary>
+
+            <CollectionViewSource x:Key="genreListSource"></CollectionViewSource>
             <Style x:Key="MainFrameStyle" TargetType="Frame">
                 <Setter Property="Height" Value="Auto"/>
                 <Setter Property="Width" Value="Auto"/>
@@ -40,11 +43,10 @@
                 <Button x:Name="RatingBtn" Click="RatingBtn_Click">
                     Rating
                 </Button>
-                <ListView >
+                <ListView ItemsSource="{Binding Source= {StaticResource genreListSource}}" Height="400" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Type" />
-                          
+                            <GridViewColumn Header="Genre List" DisplayMemberBinding="{Binding Name}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
