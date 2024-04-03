@@ -25,13 +25,15 @@ namespace PMEB_Final_Group2
         ImdbContext context = new ImdbContext();
 
         CollectionViewSource genreListSource = new CollectionViewSource();
-       
-       
+
+        private string currentSearchText = "";
+        private int? currentRatingFilter = null;
+        private Genre? currentGenreFilter = null;
+
         public MainWindow()
-        {   
+        {
             InitializeComponent();
             LoadHomePage();
-
         }
 
         private void LoadHomePage()
@@ -68,20 +70,8 @@ namespace PMEB_Final_Group2
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve the text from the TextBox.
-            var searchText = txtSearch.Text; // Changed from TextSearch.TextProperty to txtSearch.Text
-
-            // Ensure searchText is not null and convert it to lowercase.
-            searchText = searchText?.ToLower() ?? string.Empty;
-
-            // Query the Titles where the PrimaryTitle contains the searchText.
-            var query = context.Titles
-                    .Include(t => t.Rating) 
-                    .Include(t => t.Genres) 
-                    .Where(t => t.PrimaryTitle.ToLower().Contains(searchText.ToLower()))
-                    .ToList();
-
-            mainFrame.NavigationService.Navigate(new Pages.MainSearch(query));
+            currentSearchText = txtSearch.Text.ToLower();
+            FilterMovies();
         }
 
 
@@ -90,45 +80,56 @@ namespace PMEB_Final_Group2
         {
             if (ratingComboBox.SelectedItem is ComboBoxItem selectedRating)
             {
-                // Get the tag value
-                int ratingValue = Convert.ToInt32(selectedRating.Tag);
-
-                IQueryable<Title> query = context.Titles.Include(t => t.Rating).Include(t => t.Genres);
-
-                //For Five Star
-                if (ratingValue == 10)
-                {
-                    query = query.Where(t => t.Rating.AverageRating == ratingValue);
-                }
-                else
-                {
-                    // For 1-4 Stars
-                    int maxRating = ratingValue + 2; 
-                    query = query.Where(t => t.Rating.AverageRating >= ratingValue && t.Rating.AverageRating < maxRating);
-                }
-
-                // Get the answer
-                var titles = query.ToList();
-
-                mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles));
+                currentRatingFilter = Convert.ToInt32(selectedRating.Tag);
             }
+            else
+            {
+                currentRatingFilter = null;
+            }
+            FilterMovies();
         }
 
         private void GenreListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get the item user select
-            var selectedGenre = genreListView.SelectedItem as Genre;
+            currentGenreFilter = genreListView.SelectedItem as Genre;
+            FilterMovies();
 
-            if (selectedGenre != null)
+        }
+
+        private void FilterMovies()
+        {
+            Console.WriteLine($"Filtering: Text='{currentSearchText}', Rating={currentRatingFilter}, Genre={currentGenreFilter?.Name}");
+            var query = context.Titles.AsQueryable();
+
+            if (!string.IsNullOrEmpty(currentSearchText))
             {
-                
-                var query = context.Titles
-                                   .Include(t => t.Genres)
-                                   .Where(t => t.Genres.Any(g => g.GenreId == selectedGenre.GenreId))
-                                   .ToList();
-
-                mainFrame.NavigationService.Navigate(new Pages.MainSearch(query));
+                query = query.Where(t => t.PrimaryTitle.ToLower().Contains(currentSearchText));
             }
+
+            if (currentRatingFilter.HasValue)
+            {
+                if (currentRatingFilter == 10)
+                {
+                    // Directly filter for movies rated exactly 10.
+                    query = query.Where(t => t.Rating != null && t.Rating.AverageRating == 10);
+                }
+                else
+                {
+                    // For ratings less than 10, define a range [currentRating, currentRating + 2).
+                    query = query.Where(t => t.Rating != null && t.Rating.AverageRating >= currentRatingFilter.Value && t.Rating.AverageRating < currentRatingFilter.Value + 2);
+                }
+            }
+
+            if (currentGenreFilter != null)
+            {
+                query = query.Where(t => t.Genres.Any(g => g.GenreId == currentGenreFilter.GenreId));
+            }
+
+            query = query.Include(t => t.Rating).Include(t => t.Genres);
+
+            var titles = query.ToList();
+
+            mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles));
         }
 
 
