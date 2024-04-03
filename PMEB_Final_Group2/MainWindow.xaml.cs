@@ -114,6 +114,23 @@ namespace PMEB_Final_Group2
             }
         }
 
+        private void GenreListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Get the item user select
+            var selectedGenre = genreListView.SelectedItem as Genre;
+
+            if (selectedGenre != null)
+            {
+                
+                var query = context.Titles
+                                   .Include(t => t.Genres)
+                                   .Where(t => t.Genres.Any(g => g.GenreId == selectedGenre.GenreId))
+                                   .ToList();
+
+                mainFrame.NavigationService.Navigate(new Pages.MainSearch(query));
+            }
+        }
+
 
     }
 }

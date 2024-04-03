@@ -51,7 +51,11 @@
                 </ComboBox>
 
 
-                <ListView ItemsSource="{Binding Source= {StaticResource genreListSource}}" Height="400" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView x:Name="genreListView" 
+                          ItemsSource="{Binding Source= {StaticResource genreListSource}}" 
+                          Height="400" 
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          SelectionChanged="GenreListView_SelectionChanged">        
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Genre List" DisplayMemberBinding="{Binding Name}"/>
