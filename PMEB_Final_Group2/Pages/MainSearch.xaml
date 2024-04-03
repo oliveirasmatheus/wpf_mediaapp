@@ -9,6 +9,16 @@
       Title="MainSearch">
 
     <Grid Background="AntiqueWhite">
-        <TextBlock TextAlignment="Center">This is Main Search page</TextBlock>
+        <ListView x:Name="TitlesListView" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding PrimaryTitle}" Width="200"/>
+                    <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
+                    <GridViewColumn Header="Runtime" DisplayMemberBinding="{Binding RuntimeMinutes}" Width="60"/>
+                    <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating.AverageRating}" Width="60"/>
+                    <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding GenresString}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

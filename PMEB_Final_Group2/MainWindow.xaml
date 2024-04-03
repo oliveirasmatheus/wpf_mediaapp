@@ -43,11 +43,11 @@
                 </Button>
 
                 <ComboBox x:Name="ratingComboBox" SelectionChanged="RatingComboBox_SelectionChanged" Width="86" Margin="10" IsEditable="True" IsReadOnly="True" Text="Rating">
-                    <ComboBoxItem Content="★☆☆☆☆" Tag="20"/>
-                    <ComboBoxItem Content="★★☆☆☆" Tag="40"/>
-                    <ComboBoxItem Content="★★★☆☆" Tag="60"/>
-                    <ComboBoxItem Content="★★★★☆" Tag="80"/>
-                    <ComboBoxItem Content="★★★★★" Tag="100"/>
+                    <ComboBoxItem Content="★☆☆☆☆" Tag="2"/>
+                    <ComboBoxItem Content="★★☆☆☆" Tag="4"/>
+                    <ComboBoxItem Content="★★★☆☆" Tag="6"/>
+                    <ComboBoxItem Content="★★★★☆" Tag="8"/>
+                    <ComboBoxItem Content="★★★★★" Tag="10"/>
                 </ComboBox>
 
 

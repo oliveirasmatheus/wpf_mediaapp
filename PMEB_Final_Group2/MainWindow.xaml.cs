@@ -34,7 +34,6 @@ namespace PMEB_Final_Group2
 
         }
 
-
         private void LoadHomePage()
         {
             if (mainFrame != null)
@@ -57,11 +56,6 @@ namespace PMEB_Final_Group2
             mainFrame.NavigationService.Navigate(new Pages.DashBorad());
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.NavigationService.Navigate(new Pages.MainSearch());
-        }
-
         private void FavoritesBtn_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Pages.Favorites());
@@ -72,15 +66,51 @@ namespace PMEB_Final_Group2
             mainFrame.NavigationService.Navigate(new Pages.Directors());
         }
 
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Retrieve the text from the TextBox.
+            var searchText = txtSearch.Text; // Changed from TextSearch.TextProperty to txtSearch.Text
+
+            // Ensure searchText is not null and convert it to lowercase.
+            searchText = searchText?.ToLower() ?? string.Empty;
+
+            // Query the Titles where the PrimaryTitle contains the searchText.
+            var query = context.Titles
+                    .Include(t => t.Rating) 
+                    .Include(t => t.Genres) 
+                    .Where(t => t.PrimaryTitle.ToLower().Contains(searchText.ToLower()))
+                    .ToList();
+
+            mainFrame.NavigationService.Navigate(new Pages.MainSearch(query));
+        }
+
+
 
         private void RatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ratingComboBox.SelectedItem is ComboBoxItem selectedRating)
             {
+                // Get the tag value
                 int ratingValue = Convert.ToInt32(selectedRating.Tag);
 
+                IQueryable<Title> query = context.Titles.Include(t => t.Rating).Include(t => t.Genres);
 
-                mainFrame.NavigationService.Navigate(new Pages.MainSearch());
+                //For Five Star
+                if (ratingValue == 10)
+                {
+                    query = query.Where(t => t.Rating.AverageRating == ratingValue);
+                }
+                else
+                {
+                    // For 1-4 Stars
+                    int maxRating = ratingValue + 2; 
+                    query = query.Where(t => t.Rating.AverageRating >= ratingValue && t.Rating.AverageRating < maxRating);
+                }
+
+                // Get the answer
+                var titles = query.ToList();
+
+                mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles));
             }
         }
 
