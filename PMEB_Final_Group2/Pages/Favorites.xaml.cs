@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PMEB_Final_Group2.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,45 @@ namespace PMEB_Final_Group2.Pages
     /// </summary>
     public partial class Favorites : Page
     {
+        private ImdbContext context;
+
         public Favorites()
         {
             InitializeComponent();
+            context = new ImdbContext();
+            LoadFavoriteMovies();
         }
+
+        private void LoadFavoriteMovies()
+        {
+            var favoriteMovies = (from favorite in context.Favorites
+                                  join title in context.Titles.Include(t => t.TitleAliases)
+                                                              .Include(t => t.Genres)
+                                                              .Include(t => t.Rating)
+                                                              .Include("Names") // For Directors
+                                                              .Include("Names1") // For Writers
+                                   on favorite.TitleId equals title.TitleId
+                                  let firstAlias = title.TitleAliases.FirstOrDefault()
+                                  let directors = title.Names.Select(n => n.PrimaryName) // Adjust based on the actual relationship
+                                  let writers = title.Names1.Select(n => n.PrimaryName) // Adjust based on the actual relationship
+                                  select new
+                                  {
+                                      Title = title.PrimaryTitle,
+                                      OriTitle = title.OriginalTitle,
+                                      StartYear = title.StartYear,
+                                      isAdult = title.IsAdult == true ? "Only for Adult" : "Good For Every One",
+                                      Runtime = title.RuntimeMinutes,
+                                      Rating = title.Rating != null ? title.Rating.AverageRating : null,
+                                      VoteNum = title.Rating != null ? title.Rating.NumVotes.ToString() : null,
+                                      Genres = string.Join(", ", title.Genres.Select(g => g.Name)),
+                                      Region = firstAlias != null ? firstAlias.Region : null,
+                                      Language = firstAlias != null ? firstAlias.Language : null,
+                                      Directors = string.Join(", ", directors), // Comma-separated list of directors
+                                      Writers = string.Join(", ", writers) // Comma-separated list of writers
+                                  }).ToList();
+
+            FavoritesListView.ItemsSource = favoriteMovies;
+        }
+
     }
 }

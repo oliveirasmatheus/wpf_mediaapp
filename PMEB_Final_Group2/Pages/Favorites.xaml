@@ -9,6 +9,23 @@
       Title="Favorites">
 
     <Grid Background="AntiqueWhite">
-        <TextBlock TextAlignment="Center">This is Favorites page</TextBlock>
+        <ListView x:Name="FavoritesListView" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200"/>
+                    <GridViewColumn Header="Original Title" DisplayMemberBinding="{Binding OriTitle}" Width="200"/>
+                    <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
+                    <GridViewColumn Header="Adult" DisplayMemberBinding="{Binding isAdult}" Width="120"/>
+                    <GridViewColumn Header="Runtime (mins)" DisplayMemberBinding="{Binding Runtime}" Width="110"/>
+                    <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating}" Width="60"/>
+                    <GridViewColumn Header="Votes" DisplayMemberBinding="{Binding VoteNum}" Width="60"/>
+                    <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding Genres}" Width="200"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}" Width="100"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}" Width="100"/>
+                    <GridViewColumn Header="Directors" DisplayMemberBinding="{Binding Directors}" Width="200"/>
+                    <GridViewColumn Header="Writers" DisplayMemberBinding="{Binding Writers}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>
