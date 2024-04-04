@@ -52,6 +52,7 @@
                     <ComboBoxItem Content="★★★☆☆" Tag="6"/>
                     <ComboBoxItem Content="★★★★☆" Tag="8"/>
                     <ComboBoxItem Content="★★★★★" Tag="10"/>
+                    <ComboBoxItem Content="SELECT ALL" Tag="100"/>
                 </ComboBox>
 
 

@@ -80,13 +80,21 @@ namespace PMEB_Final_Group2
         {
             if (ratingComboBox.SelectedItem is ComboBoxItem selectedRating)
             {
-                currentRatingFilter = Convert.ToInt32(selectedRating.Tag);
+                
+                if (Convert.ToInt32(selectedRating.Tag) == 100)
+                {
+                    currentRatingFilter = null; // Select all
+                }
+                else
+                {
+                    currentRatingFilter = Convert.ToInt32(selectedRating.Tag);
+                }
             }
             else
             {
                 currentRatingFilter = null;
             }
-            FilterMovies();
+            FilterMovies(); 
         }
 
         private void GenreListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -128,7 +136,8 @@ namespace PMEB_Final_Group2
             query = query
                 .Include(t => t.Rating)
                 .Include(t => t.Genres)
-                .Include(t => t.TitleAliases);
+                .Include(t => t.TitleAliases)
+                .Take(200);// Optimize loading
 
             var titles = query.ToList();
 
