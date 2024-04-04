@@ -132,7 +132,13 @@ namespace PMEB_Final_Group2
 
             var titles = query.ToList();
 
-            mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles));
+            mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles, context));
+        }
+
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
 

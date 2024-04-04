@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PMEB_Final_Group2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="1000">
 
     <Window.Resources>
-        
-        
+
+
         <ResourceDictionary>
-            
+
             <CollectionViewSource x:Key="genreListSource"></CollectionViewSource>
             <Style x:Key="MainFrameStyle" TargetType="Frame">
                 <Setter Property="Height" Value="Auto"/>
@@ -23,24 +23,28 @@
     </Window.Resources>
 
     <DockPanel>
-        
+
         <ToolBar DockPanel.Dock="Left" >
             <StackPanel  Orientation="Vertical" Width="100">
+
+                <Button x:Name="DashBoradBtn" Click="DashBoradBtn_Click">
+                    DashBoard
+                </Button>
+                <Button x:Name="FavoritesBtn" Click="FavoritesBtn_Click">
+                    Favorites
+                </Button>
+                <Button x:Name="DirectsBtn" Click="DirectsBtn_Click">
+                    Director
+                </Button>
+
+                <Rectangle Height="2" Fill="Gray" Margin="5,10"/>
+
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="txtSearch" Width="60" />
                     <Button x:Name="SearchButton" Click="SearchButton_Click">
                         Search
                     </Button>
                 </StackPanel>
-                <Button x:Name="DashBoradBtn" Click="DashBoradBtn_Click">
-                   DashBoard
-                </Button>
-                <Button x:Name="FavoritesBtn" Click="FavoritesBtn_Click">
-                   Favorites
-                </Button>
-                <Button x:Name="DirectsBtn" Click="DirectsBtn_Click">
-                    Director
-                </Button>
 
                 <ComboBox x:Name="ratingComboBox" SelectionChanged="RatingComboBox_SelectionChanged" Width="86" Margin="10" IsEditable="True" IsReadOnly="True" Text="Rating">
                     <ComboBoxItem Content="★☆☆☆☆" Tag="2"/>
@@ -53,19 +57,24 @@
 
                 <ListView x:Name="genreListView" 
                           ItemsSource="{Binding Source= {StaticResource genreListSource}}" 
-                          Height="400" 
+                          Height="258" 
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          SelectionChanged="GenreListView_SelectionChanged">        
+                          SelectionChanged="GenreListView_SelectionChanged" Width="96">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Genre List" DisplayMemberBinding="{Binding Name}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
+
+                <Rectangle Height="2" Fill="DarkGray" Margin="5,10"/>
+
+                <!-- Exit-->
+                <Button Content="Exit" HorizontalAlignment="Center" Margin="10" Click="ExitButton_Click"/>
             </StackPanel>
         </ToolBar>
         <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}" Width="652"></Frame>
     </DockPanel>
-    
-    
+
+
 </Window>

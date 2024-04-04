@@ -12,6 +12,13 @@
         <ListView x:Name="TitlesListView" Margin="10">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Action" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Add to Favorite" Click="AddToFavorite_Click" CommandParameter="{Binding TitleId}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding PrimaryTitle}" Width="200"/>
                     <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
                     <GridViewColumn Header="Runtime" DisplayMemberBinding="{Binding RuntimeMinutes}" Width="60"/>
