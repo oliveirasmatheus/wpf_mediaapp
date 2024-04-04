@@ -125,7 +125,10 @@ namespace PMEB_Final_Group2
                 query = query.Where(t => t.Genres.Any(g => g.GenreId == currentGenreFilter.GenreId));
             }
 
-            query = query.Include(t => t.Rating).Include(t => t.Genres);
+            query = query
+                .Include(t => t.Rating)
+                .Include(t => t.Genres)
+                .Include(t => t.TitleAliases);
 
             var titles = query.ToList();
 

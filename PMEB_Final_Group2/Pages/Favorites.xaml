@@ -23,7 +23,7 @@
                     <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}" Width="100"/>
                     <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}" Width="100"/>
                     <GridViewColumn Header="Directors" DisplayMemberBinding="{Binding Directors}" Width="200"/>
-                    <GridViewColumn Header="Writers" DisplayMemberBinding="{Binding Writers}" Width="200"/>
+                    
                 </GridView>
             </ListView.View>
         </ListView>

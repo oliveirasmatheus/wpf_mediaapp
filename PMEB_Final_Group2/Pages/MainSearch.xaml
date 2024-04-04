@@ -15,8 +15,12 @@
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding PrimaryTitle}" Width="200"/>
                     <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
                     <GridViewColumn Header="Runtime" DisplayMemberBinding="{Binding RuntimeMinutes}" Width="60"/>
+                    <GridViewColumn Header="Age Level" DisplayMemberBinding="{Binding IsAdultOrNot}" Width="60"/>
                     <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating.AverageRating}" Width="60"/>
+                    <GridViewColumn Header="VoteAmount" DisplayMemberBinding="{Binding Rating.NumVotes}" Width="60"/>
                     <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding GenresString}" Width="200"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="200"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>

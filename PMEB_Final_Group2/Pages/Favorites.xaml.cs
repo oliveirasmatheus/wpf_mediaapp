@@ -38,7 +38,7 @@ namespace PMEB_Final_Group2.Pages
                                                               .Include(t => t.Genres)
                                                               .Include(t => t.Rating)
                                                               .Include("Names") // For Directors
-                                                              .Include("Names1") // For Writers
+                                                              
                                    on favorite.TitleId equals title.TitleId
                                   let firstAlias = title.TitleAliases.FirstOrDefault()
                                   let directors = title.Names.Select(n => n.PrimaryName) // Adjust based on the actual relationship
@@ -56,7 +56,7 @@ namespace PMEB_Final_Group2.Pages
                                       Region = firstAlias != null ? firstAlias.Region : null,
                                       Language = firstAlias != null ? firstAlias.Language : null,
                                       Directors = string.Join(", ", directors), // Comma-separated list of directors
-                                      Writers = string.Join(", ", writers) // Comma-separated list of writers
+                                      
                                   }).ToList();
 
             FavoritesListView.ItemsSource = favoriteMovies;
