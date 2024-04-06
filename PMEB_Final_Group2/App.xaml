@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:PMEB_Final_Group2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="ToolBar">
+            <Setter Property="Background"  Value="#25262D"></Setter>
+            <Setter Property="Padding"  Value="10 0 10 0"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

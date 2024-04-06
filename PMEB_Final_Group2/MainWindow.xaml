@@ -5,13 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PMEB_Final_Group2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
+        Title="MainWindow" Height="600" Width="900">
 
     <Window.Resources>
-
-
         <ResourceDictionary>
-
             <CollectionViewSource x:Key="genreListSource"></CollectionViewSource>
             <Style x:Key="MainFrameStyle" TargetType="Frame">
                 <Setter Property="Height" Value="Auto"/>
@@ -19,59 +16,123 @@
                 <Setter Property="DockPanel.Dock" Value="Right"/>
                 <Setter Property="NavigationUIVisibility" Value="Hidden"/>
             </Style>
+            <Style x:Key="SidebarButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#25262D"/>
+                <Setter Property="Foreground" Value="#718096"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="0 5 0 5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0" Padding="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#393A42"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="TextBox" x:Key="TxtSearchStyle">
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Button" x:Key="SearchButtonStyle">
+                <Setter Property="Background" Value="white"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Border" x:Key="SearchBorderStyle">
+                <Setter Property="Background" Value="white"/>
+                <Setter Property="Padding" Value="8 4"/>
+                <Setter Property="Margin" Value="0 5"/>
+                <Setter Property="CornerRadius" Value="8"/>
+            </Style>
+            <Style TargetType="Border" x:Key="GenreBorderStyle">
+                <Setter Property="Background" Value="#9FE2FF"/>
+                <Setter Property="Padding" Value="8 4"/>
+                <Setter Property="Margin" Value="0 5"/>
+                <Setter Property="CornerRadius" Value="8"/>
+            </Style>
+            <Style TargetType="ComboBox" x:Key="RatingBoxStyle">
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Margin" Value="0 10"/>
+            </Style>
+            <Style TargetType="ComboBoxItem" x:Key="RatingItemStarStyle">
+                <Setter Property="Background" Value="#25262D"/>
+                <Setter Property="Foreground" Value="#FFC319"/>
+            </Style>
+            <Style TargetType="ComboBoxItem" x:Key="RatingItemTextStyle">
+                <Setter Property="Background" Value="#25262D"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            <Style TargetType="Rectangle">
+                <Setter Property="Height" Value="1"/>
+                <Setter Property="Fill" Value="Gray"/>
+                <Setter Property="Margin" Value="0 10"/>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
     <DockPanel>
 
-        <ToolBar DockPanel.Dock="Left" >
-            <StackPanel  Orientation="Vertical" Width="100">
+        <ToolBar DockPanel.Dock="Left" ToolBarTray.IsLocked="True">
+            <StackPanel  Orientation="Vertical" Width="120">
 
-                <Button x:Name="DashBoradBtn" Click="DashBoradBtn_Click">
+                <Button x:Name="DashBoradBtn" Click="DashBoradBtn_Click" Style="{StaticResource SidebarButtonStyle}">
                     DashBoard
                 </Button>
-                <Button x:Name="FavoritesBtn" Click="FavoritesBtn_Click">
+                <Button x:Name="FavoritesBtn" Click="FavoritesBtn_Click" Style="{StaticResource SidebarButtonStyle}">
                     Favorites
                 </Button>
-                <Button x:Name="DirectsBtn" Click="DirectsBtn_Click">
+                <Button x:Name="DirectsBtn" Click="DirectsBtn_Click" Style="{StaticResource SidebarButtonStyle}">
                     Director
                 </Button>
 
-                <Rectangle Height="2" Fill="Gray" Margin="5,10"/>
+                <Rectangle/>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="txtSearch" Width="60" />
-                    <Button x:Name="SearchButton" Click="SearchButton_Click">
-                        Search
-                    </Button>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border  Style="{StaticResource SearchBorderStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="txtSearch" Style="{StaticResource TxtSearchStyle}"/>
+                            <Button x:Name="SearchButton" Click="SearchButton_Click" Style="{StaticResource SearchButtonStyle}">
+                                🔍
+                            </Button>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
-                <ComboBox x:Name="ratingComboBox" SelectionChanged="RatingComboBox_SelectionChanged" Width="86" Margin="10" IsEditable="True" IsReadOnly="True" Text="Rating">
-                    <ComboBoxItem Content="★☆☆☆☆" Tag="2"/>
-                    <ComboBoxItem Content="★★☆☆☆" Tag="4"/>
-                    <ComboBoxItem Content="★★★☆☆" Tag="6"/>
-                    <ComboBoxItem Content="★★★★☆" Tag="8"/>
-                    <ComboBoxItem Content="★★★★★" Tag="10"/>
-                    <ComboBoxItem Content="SELECT ALL" Tag="100"/>
+                <ComboBox x:Name="ratingComboBox" SelectionChanged="RatingComboBox_SelectionChanged" IsEditable="True" IsReadOnly="True" Text="Rating" Style="{StaticResource RatingBoxStyle}">
+                    <ComboBoxItem  Style="{StaticResource RatingItemStarStyle}" Content="★☆☆☆☆" Tag="2"/>
+                    <ComboBoxItem  Style="{StaticResource RatingItemStarStyle}" Content="★★☆☆☆" Tag="4"/>
+                    <ComboBoxItem  Style="{StaticResource RatingItemStarStyle}" Content="★★★☆☆" Tag="6"/>
+                    <ComboBoxItem  Style="{StaticResource RatingItemStarStyle}" Content="★★★★☆" Tag="8"/>
+                    <ComboBoxItem  Style="{StaticResource RatingItemStarStyle}" Content="★★★★★" Tag="10"/>
+                    <ComboBoxItem  Style="{StaticResource RatingItemTextStyle}" Content="Select All" Tag="100"/>
                 </ComboBox>
 
 
                 <ListView x:Name="genreListView" 
-                          ItemsSource="{Binding Source= {StaticResource genreListSource}}" 
-                          Height="258" 
+                          ItemsSource="{Binding Source={StaticResource genreListSource}}" 
+                          Height="258"
+                          Background="#25262D"
+                          BorderThickness="0"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          SelectionChanged="GenreListView_SelectionChanged" Width="96">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Genre List" DisplayMemberBinding="{Binding Name}"/>
-                        </GridView>
-                    </ListView.View>
+                          SelectionChanged="GenreListView_SelectionChanged" Width="120">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource GenreBorderStyle}">
+                                <TextBlock Text="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
 
-                <Rectangle Height="2" Fill="DarkGray" Margin="5,10"/>
+                <Rectangle/>
 
-                <!-- Exit-->
-                <Button Content="Exit" HorizontalAlignment="Center" Margin="10" Click="ExitButton_Click"/>
+                <Button Content="Exit" HorizontalAlignment="Center" Margin="10" Click="ExitButton_Click" Style="{StaticResource SidebarButtonStyle}"/>
             </StackPanel>
         </ToolBar>
         <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}" Width="652"></Frame>
