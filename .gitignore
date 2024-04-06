@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Config file - User added
 /PMEB_Final_Group2/App.config
+/PMEB_Final_Group2/Data/ImdbContext.cs

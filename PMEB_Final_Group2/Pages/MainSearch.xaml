@@ -8,6 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainSearch">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FavButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="AntiqueWhite">
         <ListView x:Name="TitlesListView" Margin="10">
             <ListView.View>
@@ -15,7 +27,7 @@
                     <GridViewColumn Header="Action" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Add to Favorite" Click="AddToFavorite_Click" CommandParameter="{Binding TitleId}" />
+                                <Button Content="👍" Click="AddToFavorite_Click" CommandParameter="{Binding TitleId}" Style="{StaticResource FavButtonStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
