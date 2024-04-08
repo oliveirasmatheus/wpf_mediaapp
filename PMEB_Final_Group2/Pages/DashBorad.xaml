@@ -8,7 +8,64 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DashBorad">
 
-    <Grid Background="AntiqueWhite">
-        <TextBlock TextAlignment="Center">This is DashBorad. Landing page</TextBlock>
-    </Grid>
+    <Page.Resources>
+        <CollectionViewSource x:Key="suggestedMoviesViewSource"></CollectionViewSource>
+        <CollectionViewSource x:Key="newMoviesViewSource"></CollectionViewSource>
+
+        <Style TargetType="TextBlock" x:Key="fontColor">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
+    
+    <DockPanel Background="AntiqueWhite">
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Margin="0,2,0,0">Suggested Movies</TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="250" Margin="0,0,0,5">
+                <ListView x:Name="listSuggestedMovies" ItemsSource="{Binding Source={StaticResource suggestedMoviesViewSource}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="#15515F">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Width="550">
+                                    <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}Runtime: {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Margin="0,5,0,0">New Movies</TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="250" Margin="0,5,0,5" >
+                <ListView x:Name="listNewMovies" ItemsSource="{Binding Source={StaticResource newMoviesViewSource}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="#15515F">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Width="450">
+                                    <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
+                                    <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}Runtime: {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="Add to Favorites" Click="AddToFavorites_Click" Tag="{Binding TitleId}" Margin="5" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+    </DockPanel>
+
 </Page>
