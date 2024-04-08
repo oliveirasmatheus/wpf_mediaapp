@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using PMEB_Final_Group2.Models;
 
@@ -8,7 +7,6 @@ namespace PMEB_Final_Group2.Data;
 
 public partial class ImdbContext : DbContext
 {
-    //scaffold-dbcontext "{Your Local DB Connect String}" Microsoft.EntityFrameworkCore.SqlServer -contextdir Data -outputdir Models/Generated -contextnamespace PMEB_Final_Group2.Data -namespace PMEB_Final_Group2.Models -force
     public ImdbContext()
     {
     }
@@ -35,8 +33,9 @@ public partial class ImdbContext : DbContext
     public virtual DbSet<TitleAlias> TitleAliases { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["ImdbDBConn"].ConnectionString);
-    
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IMDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Episode>(entity =>

@@ -7,8 +7,33 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Directors">
-
+    <Page.Resources>
+        <CollectionViewSource x:Key="directorViewSource"/>
+    </Page.Resources>
     <Grid Background="AntiqueWhite">
-        <TextBlock TextAlignment="Center">This is Directors page</TextBlock>
+
+        <ListView x:Name="directorsListView" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding IndexKey}"></TextBlock>
+                        <TextBlock Text="{Binding GroupCount}"></TextBlock>
+                        <Expander Header="View Directors">
+                            <!--Director Level-->
+                            <ListView ItemsSource="{Binding DirectorsGroup}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding personName}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Expander>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </Page>
