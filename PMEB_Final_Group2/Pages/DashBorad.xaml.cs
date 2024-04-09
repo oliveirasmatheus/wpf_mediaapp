@@ -50,7 +50,7 @@ namespace PMEB_Final_Group2.Pages
                                         {
                                             Title = title.OriginalTitle,
                                             TitleId = title.TitleId,
-                                            AverageRating = rating.AverageRating != null ? $"★{rating.AverageRating}/10" : "Rate not available",
+                                            AverageRating = rating.AverageRating != null ? $"★ {rating.AverageRating}/10" : "Rate not available",
                                             Genres = string.Join(", ", title.Genres.Select(genre => genre.Name)) ?? "Unknown Genre",
                                             RuntimeMinutes = title.RuntimeMinutes ?? 0
                                         }).Take(6);
@@ -64,7 +64,7 @@ namespace PMEB_Final_Group2.Pages
                                   {
                                       Title = title.OriginalTitle,
                                       TitleId = title.TitleId,
-                                      AverageRating = ratingInfo != null ? $"★{ratingInfo.AverageRating}/10" : "Rate not available",
+                                      AverageRating = ratingInfo != null ? $"★ {ratingInfo.AverageRating}/10" : "Rate not available",
                                       Genres = string.Join(", ", title.Genres.Select(genre => genre.Name)) ?? "Unknown Genre",
                                       RuntimeMinutes = title.RuntimeMinutes ?? 0
                                   }).Take(10);

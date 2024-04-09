@@ -35,7 +35,7 @@ public partial class ImdbContext : DbContext
     public virtual DbSet<TitleAlias> TitleAliases { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["ImdbDBConn"].ConnectionString);
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IMDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

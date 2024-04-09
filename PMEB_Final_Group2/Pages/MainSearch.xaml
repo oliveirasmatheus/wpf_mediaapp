@@ -10,18 +10,47 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <Style x:Key="FavButtonStyle" TargetType="Button">
+            <Style TargetType="Button" x:Key="FavButtonStyle">
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Width" Value="40"/>
                 <Setter Property="Height" Value="40"/>
             </Style>
+            <Style TargetType="ListView">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            <Style TargetType="Border" x:Key="SearchListItemStyle">
+                <Setter Property="Background" Value="#15515F"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+            <Style TargetType="GridViewColumnHeader">
+                <Setter Property="Margin" Value="0 0 0 10"/>
+                <Setter Property="Padding" Value="0 10"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="AntiqueWhite">
-        <ListView x:Name="TitlesListView" Margin="10">
+    <Grid>
+        <ListView x:Name="TitlesListView">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border  Style="{StaticResource SearchListItemStyle}">
+                                    <GridViewRowPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Action" Width="100">
@@ -32,14 +61,14 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding PrimaryTitle}" Width="200"/>
-                    <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
-                    <GridViewColumn Header="Runtime" DisplayMemberBinding="{Binding RuntimeMinutes}" Width="60"/>
-                    <GridViewColumn Header="Age Level" DisplayMemberBinding="{Binding IsAdultOrNot}" Width="60"/>
+                    <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="80"/>
+                    <GridViewColumn Header="Runtime" DisplayMemberBinding="{Binding RuntimeMinutes}" Width="80"/>
+                    <GridViewColumn Header="Age Level" DisplayMemberBinding="{Binding IsAdultOrNot}" Width="80"/>
                     <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating.AverageRating}" Width="60"/>
-                    <GridViewColumn Header="VoteAmount" DisplayMemberBinding="{Binding Rating.NumVotes}" Width="60"/>
+                    <GridViewColumn Header="Votes" DisplayMemberBinding="{Binding Rating.NumVotes}" Width="60"/>
                     <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding GenresString}" Width="200"/>
-                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="200"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="200"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="60"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="80"/>
                 </GridView>
             </ListView.View>
         </ListView>
