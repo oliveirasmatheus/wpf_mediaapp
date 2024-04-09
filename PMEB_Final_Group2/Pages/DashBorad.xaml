@@ -11,31 +11,48 @@
     <Page.Resources>
         <CollectionViewSource x:Key="suggestedMoviesViewSource"></CollectionViewSource>
         <CollectionViewSource x:Key="newMoviesViewSource"></CollectionViewSource>
-
+        <Style TargetType="Border" x:Key="MovieCardStyle">
+            <Setter Property="Background" Value="#15515F"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="PanelHeadingStyle">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="0 0 0 20"/>
+        </Style>
         <Style TargetType="TextBlock" x:Key="fontColor">
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <Style TargetType="Button" x:Key="CardFavButtonStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
     </Page.Resources>
     
-    <DockPanel Background="AntiqueWhite">
+    <DockPanel>
         <StackPanel DockPanel.Dock="Top">
-            <TextBlock Margin="0,2,0,0">Suggested Movies</TextBlock>
+            <TextBlock Margin="0,2,0,0"  Style="{StaticResource PanelHeadingStyle}">Suggested Movies</TextBlock>
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="250" Margin="0,0,0,5">
                 <ListView x:Name="listSuggestedMovies" ItemsSource="{Binding Source={StaticResource suggestedMoviesViewSource}}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Background="#15515F">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Width="550">
-                                    <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}Runtime: {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
-                                </StackPanel>
-                            </Grid>
+                            <StackPanel>
+                                <Border  Style="{StaticResource MovieCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}⏰ {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -43,24 +60,22 @@
         </StackPanel>
 
         <StackPanel DockPanel.Dock="Top">
-            <TextBlock Margin="0,5,0,0">New Movies</TextBlock>
+            <TextBlock Margin="0,5,0,0"  Style="{StaticResource PanelHeadingStyle}">New Movies</TextBlock>
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="250" Margin="0,5,0,5" >
                 <ListView x:Name="listNewMovies" ItemsSource="{Binding Source={StaticResource newMoviesViewSource}}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Background="#15515F">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Width="450">
-                                    <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
-                                    <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}Runtime: {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
-                                </StackPanel>
-                                <Button Grid.Column="1" Content="Add to Favorites" Click="AddToFavorites_Click" Tag="{Binding TitleId}" Margin="5" VerticalAlignment="Center"/>
-                            </Grid>
+                            <StackPanel>
+                                <Border  Style="{StaticResource MovieCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding AverageRating}" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding Genres}" Style="{StaticResource fontColor}"></TextBlock>
+                                        <TextBlock Text="{Binding RuntimeMinutes, StringFormat='{}⏰ {0} minutes'}" Style="{StaticResource fontColor}"></TextBlock>
+                                        <Button Content="👍" Click="AddToFavorites_Click" Tag="{Binding TitleId}" Style="{StaticResource CardFavButtonStyle}"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
