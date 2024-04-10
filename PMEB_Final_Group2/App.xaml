@@ -8,5 +8,14 @@
             <Setter Property="Background"  Value="#25262D"></Setter>
             <Setter Property="Padding"  Value="10 0 10 0"></Setter>
         </Style>
+        <Style TargetType="ListView">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="Border" x:Key="GenreBorderStyle">
+            <Setter Property="Background" Value="#9FE2FF"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="Margin" Value="0 5"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
     </Application.Resources>
 </Application>
