@@ -12,6 +12,14 @@
         <ListView x:Name="FavoritesListView" Margin="10">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Action" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteButton_Click"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Title ID" DisplayMemberBinding="{Binding TitleId}" Width="100"/>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200"/>
                     <GridViewColumn Header="Original Title" DisplayMemberBinding="{Binding OriTitle}" Width="200"/>
                     <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
