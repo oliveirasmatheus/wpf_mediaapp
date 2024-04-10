@@ -12,19 +12,26 @@
     </Page.Resources>
     <Grid Background="AntiqueWhite">
 
-        <ListView x:Name="directorsListView" Margin="10">
+        <ListView x:Name="directorsListView" ItemsSource="{Binding DirectorsGroup}"
+              ScrollViewer.VerticalScrollBarVisibility="Visible" Height="500" Width="600">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding IndexKey}"></TextBlock>
-                        <TextBlock Text="{Binding GroupCount}"></TextBlock>
-                        <Expander Header="View Directors">
-                            <!--Director Level-->
-                            <ListView ItemsSource="{Binding DirectorsGroup}">
+                        <TextBlock Text="{Binding DirectorName}" FontSize="16"></TextBlock>
+                        <Expander Header=" View Films">
+                            <ListView ItemsSource="{Binding AllTitles}" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                              MinHeight="50" MaxHeight="200" MinWidth="150">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding personName}"></TextBlock>
+                                            <TextBlock Text="{Binding PrimaryTitle}" FontSize="14" FontWeight="Bold"  Margin="5 0 0 0"></TextBlock>
+                                            <Expander Header="View Details">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding RuntimeFormatted}" Margin="5 0 0 0"></TextBlock>
+                                                    <TextBlock Text="{Binding YearFormatted}" Margin="5 0 0 0"></TextBlock>
+                                                    <TextBlock Text="{Binding IsAdultOrNot}" Margin="5 0 0 0"></TextBlock>
+                                                </StackPanel>
+                                            </Expander>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -34,6 +41,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </Grid>
 </Page>

@@ -13,5 +13,17 @@ namespace PMEB_Final_Group2.Models
 
         public string AliasRegion => TitleAliases.FirstOrDefault()?.Region ?? "Unknown";
         public string AliasLanguage => TitleAliases.FirstOrDefault()?.Language ?? "Unknown";
+
+        public string RuntimeFormatted { get
+            {
+                return $"Runtime: {this.RuntimeMinutes} min" ?? "Runtime: unlisted";
+            }
+        }
+
+        public string YearFormatted { get
+            {
+                return $"Released: {this.StartYear}";
+            }
+        }
     }
 }
