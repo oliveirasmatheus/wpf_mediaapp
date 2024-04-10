@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace PMEB_Final_Group2.Pages
 {
-    /// <summary>
-    /// Favorites.xaml 的交互逻辑
-    /// </summary>
+
     public partial class Favorites : Page
     {
         private ImdbContext context;
@@ -39,12 +37,13 @@ namespace PMEB_Final_Group2.Pages
                                                               .Include(t => t.Rating)
                                                               .Include("Names") // For Directors
                                                               
-                                   on favorite.TitleId equals title.TitleId
+                                  on favorite.TitleId equals title.TitleId
                                   let firstAlias = title.TitleAliases.FirstOrDefault()
                                   let directors = title.Names.Select(n => n.PrimaryName) // Adjust based on the actual relationship
                                   let writers = title.Names1.Select(n => n.PrimaryName) // Adjust based on the actual relationship
                                   select new
                                   {
+                                      TitleId = title.TitleId,
                                       Title = title.PrimaryTitle,
                                       OriTitle = title.OriginalTitle,
                                       StartYear = title.StartYear,
@@ -60,6 +59,41 @@ namespace PMEB_Final_Group2.Pages
                                   }).ToList();
 
             FavoritesListView.ItemsSource = favoriteMovies;
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            var movie = deleteButton.DataContext as dynamic; // Safe casting to dynamic
+
+            var movieId = movie?.TitleId as string; // Ensures movieId is null if TitleId isn't a string or is absent
+
+            if (!string.IsNullOrWhiteSpace(movieId))
+            {
+                try
+                {
+                    var favoriteToRemove = context.Favorites.FirstOrDefault(f => f.TitleId == movieId);
+                    if (favoriteToRemove != null)
+                    {
+                        context.Favorites.Remove(favoriteToRemove);
+                        context.SaveChanges(); // Attempt to save changes to the database
+
+                        // Refresh the list to reflect the deletion
+                        LoadFavoriteMovies();
+
+                        // Show success message
+                        MessageBox.Show("Movie successfully deleted from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception details or handle them as needed
+                    Console.WriteLine(ex.Message); // Placeholder for actual logging
+
+                    // Inform the user that an error occurred
+                    MessageBox.Show("An error occurred while trying to delete the movie from favorites. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
     }
