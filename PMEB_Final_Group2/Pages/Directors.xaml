@@ -9,15 +9,59 @@
       Title="Directors">
     <Page.Resources>
         <CollectionViewSource x:Key="directorViewSource"/>
+        <Style TargetType="Border" x:Key="SearchBorderStyle">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TxtSearchStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SearchButtonStyle">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
     </Page.Resources>
-    <Grid Background="AntiqueWhite">
+    
+    <Grid Width="Auto" HorizontalAlignment="Stretch" Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource SearchBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="txtDirectorsSearch" Style="{StaticResource TxtSearchStyle}"></TextBox>
+                    <Button Grid.Column="1" x:Name="SearchDirectorsButton" Click="SearchDirectorsButton_Click" Style="{StaticResource SearchButtonStyle}">
+                        🔍
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
 
-        <ListView x:Name="directorsListView" ItemsSource="{Binding DirectorsGroup}"
-              ScrollViewer.VerticalScrollBarVisibility="Visible" Height="500" Width="600">
+        <ListView x:Name="directorsListView" Grid.Row="1" Grid.Column="0" Width="Auto" Height="Auto" ItemsSource="{Binding DirectorsGroup}"
+              ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding DirectorName}" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding DirectorName}" FontSize="16" MaxHeight="400"></TextBlock>
                         <Expander Header=" View Films">
                             <ListView ItemsSource="{Binding AllTitles}" ScrollViewer.VerticalScrollBarVisibility="Visible"
                               MinHeight="50" MaxHeight="200" MinWidth="150">

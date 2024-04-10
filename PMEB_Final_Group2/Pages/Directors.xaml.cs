@@ -43,5 +43,23 @@ namespace PMEB_Final_Group2.Pages
 
             directorsListView.ItemsSource = directors.ToList();
         }
+
+        private void SearchDirectorsButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var directorsSearchQuery = from name in context.Names
+                            join principal in context.Principals on name.NameId equals principal.NameId
+                            join title in context.Titles on principal.TitleId equals title.TitleId
+                            where principal.JobCategory == "director"
+                            where name.PrimaryName.Contains(txtDirectorsSearch.Text)
+                            group new { name, title, title.Genres } by name.PrimaryName
+                            into directorGroup
+                            select new
+                            {
+                                DirectorName = directorGroup.Key,
+                                AllTitles = directorGroup.Select(x => x.title)
+                            };
+
+            directorsListView.ItemsSource = directorsSearchQuery.ToList();
+        }
     }
 }
