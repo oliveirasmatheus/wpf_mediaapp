@@ -21,10 +21,11 @@ namespace PMEB_Final_Group2.Pages
 
     public partial class MainSearch : Page
     {
-
+        // Fields to hold the titles to display and the database context.
         private List<Title> _titles;
         private ImdbContext context;
 
+        // Constructor: Initializes the page, assigns the list of titles and the database context passed from another page or component.
         public MainSearch(List<Title> titles, ImdbContext passedContext)
         {
             InitializeComponent();
@@ -33,16 +34,19 @@ namespace PMEB_Final_Group2.Pages
             LoadTitles();
         }
 
+        // Loads the titles into the ListView on the page.
         private void LoadTitles()
         {
             TitlesListView.ItemsSource = _titles;
         }
 
+        // Event handler for the "Add to Favorite" button click.
         private void AddToFavorite_Click(object sender, RoutedEventArgs e)
         {
+            // Retrieves the TitleId from the button's CommandParameter.
             var titleId = (string)((Button)sender).CommandParameter;
 
-            // Check if the title is already a favorite
+            // If it is already a favorite, inform the user.
             var exists = context.Favorites.Any(f => f.TitleId == titleId);
             if (exists)
             {
@@ -50,10 +54,11 @@ namespace PMEB_Final_Group2.Pages
             }
             else
             {
-                // Add to favorites
+                // If not, create a new Favorite object and add it to the database.
                 var favorite = new Favorite { TitleId = titleId };
                 context.Favorites.Add(favorite);
                 context.SaveChanges();
+
                 MessageBox.Show("Title added to favorites successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
