@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PMEB_Final_Group2.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="MainSearch">
 
     <Page.Resources>
@@ -67,8 +67,8 @@
                     <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating.AverageRating}" Width="60"/>
                     <GridViewColumn Header="Votes" DisplayMemberBinding="{Binding Rating.NumVotes}" Width="60"/>
                     <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding GenresString}" Width="200"/>
-                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="60"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="80"/>
+                    <!--<GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="60"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="80"/>-->
                 </GridView>
             </ListView.View>
         </ListView>

@@ -8,9 +8,7 @@ using System.Windows.Data;
 
 namespace PMEB_Final_Group2.Pages
 {
-    /// <summary>
-    /// Directors.xaml 的交互逻辑
-    /// </summary>
+
     public partial class Directors : Page
     {
 
@@ -29,10 +27,28 @@ namespace PMEB_Final_Group2.Pages
 
         private void LoadDirectors()
         {
-            var directors = from name in context.Names
+            var directors = (from name in context.Names
+                             join principal in context.Principals on name.NameId equals principal.NameId
+                             join title in context.Titles on principal.TitleId equals title.TitleId
+                             where principal.JobCategory == "director"
+                             group new { name, title, title.Genres } by name.PrimaryName
+                            into directorGroup
+                             select new
+                             {
+                                 DirectorName = directorGroup.Key,
+                                 AllTitles = directorGroup.Select(x => x.title)
+                             }).Take(200);
+
+            directorsListView.ItemsSource = directors.ToList();
+        }
+
+        private void SearchDirectorsButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var directorsSearchQuery = from name in context.Names
                             join principal in context.Principals on name.NameId equals principal.NameId
                             join title in context.Titles on principal.TitleId equals title.TitleId
                             where principal.JobCategory == "director"
+                            where name.PrimaryName.Contains(txtDirectorsSearch.Text)
                             group new { name, title, title.Genres } by name.PrimaryName
                             into directorGroup
                             select new
@@ -41,7 +57,7 @@ namespace PMEB_Final_Group2.Pages
                                 AllTitles = directorGroup.Select(x => x.title)
                             };
 
-            directorsListView.ItemsSource = directors.ToList();
+            directorsListView.ItemsSource = directorsSearchQuery.ToList();
         }
     }
 }

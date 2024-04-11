@@ -5,39 +5,103 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PMEB_Final_Group2.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="Directors">
     <Page.Resources>
         <CollectionViewSource x:Key="directorViewSource"/>
+        <Style TargetType="Border" x:Key="SearchBorderStyle">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TxtSearchStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SearchButtonStyle">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="Border" x:Key="DirectorsListItemStyle">
+            <Setter Property="Background" Value="#15515F"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Expander" x:Key="DirectorExpanderStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="DirectorsTextStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="MaxHeight" Value="400"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
     </Page.Resources>
-    <Grid Background="AntiqueWhite">
+    
+    <Grid Width="Auto" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource SearchBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="txtDirectorsSearch" Style="{StaticResource TxtSearchStyle}"></TextBox>
+                    <Button Grid.Column="1" x:Name="SearchDirectorsButton" Click="SearchDirectorsButton_Click" Style="{StaticResource SearchButtonStyle}">
+                        🔍
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
 
-        <ListView x:Name="directorsListView" ItemsSource="{Binding DirectorsGroup}"
-              ScrollViewer.VerticalScrollBarVisibility="Visible" Height="500" Width="600">
+        <ListView x:Name="directorsListView" Grid.Row="1" Grid.Column="0" Width="Auto" Height="Auto" ItemsSource="{Binding DirectorsGroup}"
+              ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding DirectorName}" FontSize="16"></TextBlock>
-                        <Expander Header=" View Films">
-                            <ListView ItemsSource="{Binding AllTitles}" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                              MinHeight="50" MaxHeight="200" MinWidth="150">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding PrimaryTitle}" FontSize="14" FontWeight="Bold"  Margin="5 0 0 0"></TextBlock>
-                                            <Expander Header="View Details">
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding RuntimeFormatted}" Margin="5 0 0 0"></TextBlock>
-                                                    <TextBlock Text="{Binding YearFormatted}" Margin="5 0 0 0"></TextBlock>
-                                                    <TextBlock Text="{Binding IsAdultOrNot}" Margin="5 0 0 0"></TextBlock>
-                                                </StackPanel>
-                                            </Expander>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Expander>
-                    </StackPanel>
+                    <Border Style="{StaticResource DirectorsListItemStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DirectorName}" Style="{StaticResource DirectorsTextStyle}"></TextBlock>
+                            <Expander Header=" View Films" Style="{StaticResource DirectorExpanderStyle}">
+                                <ListView ItemsSource="{Binding AllTitles}" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                  MinHeight="50" MaxHeight="200" MinWidth="150">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding PrimaryTitle}" FontSize="14" FontWeight="Bold"  Margin="5 0 0 0"></TextBlock>
+                                                <Expander Header="View Details" Padding="10 0 0 0">
+                                                    <StackPanel Margin="0 10 0 0">
+                                                        <TextBlock Text="{Binding RuntimeFormatted}" Margin="5 0 0 0"></TextBlock>
+                                                        <TextBlock Text="{Binding YearFormatted}" Margin="5 0 0 0"></TextBlock>
+                                                        <TextBlock Text="{Binding IsAdultOrNot}" Margin="5 0 0 0"></TextBlock>
+                                                    </StackPanel>
+                                                </Expander>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Expander>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
