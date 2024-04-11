@@ -67,8 +67,8 @@
                     <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating.AverageRating}" Width="60"/>
                     <GridViewColumn Header="Votes" DisplayMemberBinding="{Binding Rating.NumVotes}" Width="60"/>
                     <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding GenresString}" Width="200"/>
-                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="60"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="80"/>
+                    <!--<GridViewColumn Header="Region" DisplayMemberBinding="{Binding AliasRegion}" Width="60"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding AliasLanguage}" Width="80"/>-->
                 </GridView>
             </ListView.View>
         </ListView>

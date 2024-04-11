@@ -29,17 +29,17 @@ namespace PMEB_Final_Group2.Pages
 
         private void LoadDirectors()
         {
-            var directors = from name in context.Names
-                            join principal in context.Principals on name.NameId equals principal.NameId
-                            join title in context.Titles on principal.TitleId equals title.TitleId
-                            where principal.JobCategory == "director"
-                            group new { name, title, title.Genres } by name.PrimaryName
+            var directors = (from name in context.Names
+                             join principal in context.Principals on name.NameId equals principal.NameId
+                             join title in context.Titles on principal.TitleId equals title.TitleId
+                             where principal.JobCategory == "director"
+                             group new { name, title, title.Genres } by name.PrimaryName
                             into directorGroup
-                            select new
-                            {
-                                DirectorName = directorGroup.Key,
-                                AllTitles = directorGroup.Select(x => x.title)
-                            };
+                             select new
+                             {
+                                 DirectorName = directorGroup.Key,
+                                 AllTitles = directorGroup.Select(x => x.title)
+                             }).Take(200);
 
             directorsListView.ItemsSource = directors.ToList();
         }

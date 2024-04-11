@@ -126,7 +126,7 @@
 
                 <Rectangle/>
 
-                <Button Content="Exit" HorizontalAlignment="Center" Margin="10" Click="ExitButton_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                <Button Content="&#x2BBF;" HorizontalAlignment="Center" FontSize="36" Click="ExitButton_Click" Style="{StaticResource SidebarButtonStyle}"/>
             </StackPanel>
         </ToolBar>
         <Frame x:Name="mainFrame" Style="{StaticResource MainFrameStyle}" Width="1000"></Frame>
