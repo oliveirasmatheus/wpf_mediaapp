@@ -5,31 +5,72 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PMEB_Final_Group2.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="Favorites">
 
-    <Grid Background="AntiqueWhite">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="DeleteButtonStyle">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+            </Style>
+            <Style TargetType="ListView">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            <Style TargetType="Border" x:Key="SearchListItemStyle">
+                <Setter Property="Background" Value="#15515F"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+            <Style TargetType="GridViewColumnHeader">
+                <Setter Property="Margin" Value="0 0 0 10"/>
+                <Setter Property="Padding" Value="0 10"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
         <ListView x:Name="FavoritesListView" Margin="10">
+            <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border  Style="{StaticResource SearchListItemStyle}">
+                                <GridViewRowPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Action" Width="100">
+                    <GridViewColumn Header="Action" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="DeleteButton_Click"/>
+                                <Button Content="🗑" Click="DeleteButton_Click"  Style="{StaticResource DeleteButtonStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Title ID" DisplayMemberBinding="{Binding TitleId}" Width="100"/>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200"/>
                     <GridViewColumn Header="Original Title" DisplayMemberBinding="{Binding OriTitle}" Width="200"/>
-                    <GridViewColumn Header="Start Year" DisplayMemberBinding="{Binding StartYear}" Width="60"/>
+                    <GridViewColumn Header="Start&#x0085;Year" DisplayMemberBinding="{Binding StartYear}" Width="50"/>
                     <GridViewColumn Header="Adult" DisplayMemberBinding="{Binding isAdult}" Width="120"/>
-                    <GridViewColumn Header="Runtime (mins)" DisplayMemberBinding="{Binding Runtime}" Width="110"/>
+                    <GridViewColumn Header="Runtime &#x0085; (mins)" DisplayMemberBinding="{Binding Runtime}" Width="70"/>
                     <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Rating}" Width="60"/>
                     <GridViewColumn Header="Votes" DisplayMemberBinding="{Binding VoteNum}" Width="60"/>
                     <GridViewColumn Header="Genres" DisplayMemberBinding="{Binding Genres}" Width="200"/>
-                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}" Width="100"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}" Width="100"/>
+                    <!--<GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}" Width="100"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}" Width="100"/>-->
                     <GridViewColumn Header="Directors" DisplayMemberBinding="{Binding Directors}" Width="200"/>
                     
                 </GridView>
