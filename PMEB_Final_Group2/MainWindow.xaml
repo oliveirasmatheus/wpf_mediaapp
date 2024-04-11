@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PMEB_Final_Group2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+
+        Title="PMEB APPLICATION" Height="600" Width="1200"
+        >
+
 
     <Window.Resources>
         <ResourceDictionary>

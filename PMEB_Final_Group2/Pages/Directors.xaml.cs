@@ -8,9 +8,7 @@ using System.Windows.Data;
 
 namespace PMEB_Final_Group2.Pages
 {
-    /// <summary>
-    /// Directors.xaml 的交互逻辑
-    /// </summary>
+
     public partial class Directors : Page
     {
 

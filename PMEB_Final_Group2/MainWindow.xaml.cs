@@ -21,8 +21,10 @@ namespace PMEB_Final_Group2
 
         ImdbContext context = new ImdbContext();
 
+        // CollectionViewSource to manage the display of genres in the UI.
         CollectionViewSource genreListSource = new CollectionViewSource();
 
+        // Fields to hold the current filters applied by the user.
         private string currentSearchText = "";
         private int? currentRatingFilter = null;
         private Genre? currentGenreFilter = null;
@@ -33,6 +35,7 @@ namespace PMEB_Final_Group2
             LoadHomePage();
         }
 
+        // Loads the home page and initializes the genre list.
         private void LoadHomePage()
         {
             if (mainFrame != null)
@@ -40,7 +43,7 @@ namespace PMEB_Final_Group2
                 mainFrame.NavigationService.Navigate(new Pages.DashBorad());
             }
 
-            //Create List for Genre
+            // Initializes the genre list from the database.
             genreListSource = (CollectionViewSource)FindResource(nameof(genreListSource));
 
             context.Genres.Load();
@@ -50,29 +53,32 @@ namespace PMEB_Final_Group2
             genreListSource.Source = query.ToList();
         }
 
+        // Event handler for clicking the Dashboard button.
         private void DashBoradBtn_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Pages.DashBorad());
         }
 
+        // Event handler for clicking the Favorites button.
         private void FavoritesBtn_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Pages.Favorites());
         }
 
+        // Event handler for clicking the Directors button.
         private void DirectsBtn_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Pages.Directors());
         }
 
+        // Event handler for clicking the Search button.
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             currentSearchText = txtSearch.Text.ToLower();
             FilterMovies();
         }
 
-
-
+        // Event handler for changing the selection in the Rating combo box.
         private void RatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ratingComboBox.SelectedItem is ComboBoxItem selectedRating)
@@ -94,6 +100,7 @@ namespace PMEB_Final_Group2
             FilterMovies(); 
         }
 
+        // Event handler for changing the selection in the Genre list view.
         private void GenreListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             currentGenreFilter = genreListView.SelectedItem as Genre;
@@ -101,6 +108,7 @@ namespace PMEB_Final_Group2
 
         }
 
+        // Applies the current filters and navigates to the MainSearch page with the filtered titles
         private void FilterMovies()
         {
             Console.WriteLine($"Filtering: Text='{currentSearchText}', Rating={currentRatingFilter}, Genre={currentGenreFilter?.Name}");
@@ -141,7 +149,7 @@ namespace PMEB_Final_Group2
             mainFrame.NavigationService.Navigate(new Pages.MainSearch(titles, context));
         }
 
-
+        // Event handler for clicking the Exit button.
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

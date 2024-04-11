@@ -22,15 +22,18 @@ namespace PMEB_Final_Group2.Pages
     {
         private ImdbContext context;
 
+        // Constructor: Initializes the page and loads the favorite movies from the database.
         public Favorites()
         {
-            InitializeComponent();
-            context = new ImdbContext();
-            LoadFavoriteMovies();
+            InitializeComponent(); // Initializes the page components.
+            context = new ImdbContext(); // Creates a new instance of the database context.
+            LoadFavoriteMovies(); // Calls the method to load favorite movies.
         }
 
+        // Loads favorite movies from the database and displays them in the ListView.
         private void LoadFavoriteMovies()
         {
+            // Query to join favorite movies with their titles, including related data such as aliases, genres, ratings, and directors.
             var favoriteMovies = (from favorite in context.Favorites
                                   join title in context.Titles.Include(t => t.TitleAliases)
                                                               .Include(t => t.Genres)
@@ -47,7 +50,7 @@ namespace PMEB_Final_Group2.Pages
                                       Title = title.PrimaryTitle,
                                       OriTitle = title.OriginalTitle,
                                       StartYear = title.StartYear,
-                                      isAdult = title.IsAdult == true ? "Only for Adult" : "Good For Every One",
+                                      isAdult = title.IsAdult == true ? "Only for Adult" : "Good For All",
                                       Runtime = title.RuntimeMinutes,
                                       Rating = title.Rating != null ? title.Rating.AverageRating : null,
                                       VoteNum = title.Rating != null ? title.Rating.NumVotes.ToString() : null,
@@ -58,9 +61,12 @@ namespace PMEB_Final_Group2.Pages
                                       
                                   }).ToList();
 
+            // Assigns the query result to the ListView's ItemSource for display.
             FavoritesListView.ItemsSource = favoriteMovies;
         }
 
+
+        // Checks if the movieId is not null or whitespace before proceeding.
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Button deleteButton = (Button)sender;
@@ -68,6 +74,7 @@ namespace PMEB_Final_Group2.Pages
 
             var movieId = movie?.TitleId as string; // Ensures movieId is null if TitleId isn't a string or is absent
 
+            // Checks if the movieId is not null or whitespace before proceeding
             if (!string.IsNullOrWhiteSpace(movieId))
             {
                 try
